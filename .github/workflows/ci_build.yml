@@ -2,6 +2,7 @@ name: CI Build all products
 
 on:
   workflow_call:
+  workflow_dispatch:
 
 permissions:
   packages: read
@@ -11,10 +12,7 @@ jobs:
     strategy:
       matrix:
         builds:
-          - [ FiveM,  five,   windows ]
-          - [ RedM,   rdr3,   windows ]
           - [ Server, server, windows ]
-          - [ Server, server, linux   ]
     name: ${{ matrix.builds[0] }}${{ matrix.builds[2] == 'linux' && ' (Linux)' || '' }}
     runs-on: ${{ matrix.builds[2] == 'windows' && 'windows-latest' || 'ubuntu-24.04' }}
     env:
