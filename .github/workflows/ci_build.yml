@@ -41,8 +41,9 @@ jobs:
           # Call each git command individually, preventing unnecessary checkouts
           git init .
           git config core.symlinks true
-          git remote add origin ${{github.event.pull_request.head.repo.clone_url}}
-          git pull origin ${{github.event.pull_request.head.ref}} --depth=1
+          git remote add origin ${{ github.event.repository.clone_url }}
+          git fetch origin ${{ github.ref }} --depth=1
+          git checkout FETCH_HEAD
           git submodule update --jobs=$JOB_SLOTS --init --depth=1
         
       - name: Dependencies
